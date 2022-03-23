@@ -1,5 +1,10 @@
 {
   "name": "cdk-cicd-pipeline-lambda",
+  "description": "CDK Demo for CICD pipeline deploying Lambda.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baboopan/cdk-cicd-pipeline-lambda.git"
+  },
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",
@@ -21,17 +26,21 @@
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
     "upgrade": "npx projen upgrade",
-    "upgrade-projen": "npx projen upgrade-projen",
     "watch": "npx projen watch",
     "projen": "npx projen"
+  },
+  "author": {
+    "name": "Baboo Pan",
+    "email": "lpig0818@gmail.com",
+    "organization": false
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/node": "^12",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
-    "aws-cdk": "^2.1.0",
-    "esbuild": "^0.14.23",
+    "aws-cdk": "^2.17.0",
+    "esbuild": "^0.14.27",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -40,15 +49,21 @@
     "jest-junit": "^13",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
-    "projen": "^0.52.44",
+    "projen": "^0.53.8",
     "ts-jest": "^27.1.3",
     "ts-node": "^9",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.2"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.17.0",
     "constructs": "^10.0.5"
   },
+  "keywords": [
+    "aws",
+    "cicd",
+    "lambda",
+    "pipeline"
+  ],
   "license": "Apache-2.0",
   "version": "0.0.0",
   "jest": {

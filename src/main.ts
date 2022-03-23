@@ -1,11 +1,25 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
+import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
+export class CdkCicdPipelineLambda extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: cdk.StackProps = {}) {
     super(scope, id, props);
 
-    // define resources here...
+    new pipelines.CodePipeline(this, 'pipeline', {
+      pipelineName: 'demo-lambda',
+      synth: new pipelines.ShellStep('Synth', {
+        // input: pipelines.CodePipelineSource.gitHub('baboopan/cdk-cicd-pipeline-lambda', 'main'),
+        input: pipelines.CodePipelineSource.connection('baboopan/cdk-cicd-pipeline-lambda', 'main', {
+          connectionArn: 'arn:aws:codestar-connections:us-west-2:471856162574:connection/46b4ffea-b66f-46cb-90d5-4386bdc00769',
+        }),
+        commands: [
+          'npm ci',
+          'npm run build',
+          'npx cdk synth',
+        ],
+      }),
+    });
   }
 }
 
@@ -15,9 +29,8 @@ const devEnv = {
   region: process.env.CDK_DEFAULT_REGION,
 };
 
-const app = new App();
+const app = new cdk.App();
 
-new MyStack(app, 'my-stack-dev', { env: devEnv });
-// new MyStack(app, 'my-stack-prod', { env: prodEnv });
+new CdkCicdPipelineLambda(app, 'cdk-cicd-pipeline-lambda', { env: devEnv });
 
 app.synth();
